@@ -6,14 +6,11 @@
 """
 import argparse
 
-from scapy.all import IP, UDP, Ether, Packet, ShortField, bind_layers, get_if_hwaddr, get_if_list, sendp
-
+from scapy.all import IP, UDP, ByteField, Ether, Packet, ShortField, bind_layers, get_if_hwaddr, get_if_list, sendp
 
 class MyTunnel(Packet):
     name = "MyTunnel"
-     fields_desc = [ShortField("proto_id", 0x0800), ShortField("dst_id", 0),
-                   ByteField("hop_limit", 8)]
-
+    fields_desc = [ShortField("proto_id", 0x0800), ShortField("dst_id", 0), ByteField("hop_limit", 8)]
 
 bind_layers(Ether, MyTunnel, type=0x1212)
 bind_layers(MyTunnel, IP, proto_id=0x0800)
