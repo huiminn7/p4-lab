@@ -1,0 +1,73 @@
+###[ Ethernet ]### 
+  dst       = ff:ff:ff:ff:ff:ff
+  src       = 00:00:00:00:00:01
+  type      = 0x1212
+###[ MyTunnel ]### 
+     proto_id  = 2048
+     dst_id    = 2
+     hop_limit = 8
+###[ IP ]### 
+        version   = 4
+        ihl       = 5
+        tos       = 0x0
+        len       = 33
+        id        = 1
+        flags     = 
+        frag      = 0
+        ttl       = 64
+        proto     = udp
+        chksum    = 0x66c8
+        src       = 10.0.0.1
+        dst       = 10.0.0.3
+        \options   \
+###[ UDP ]### 
+           sport     = 4321
+           dport     = 4321
+           len       = 13
+           chksum    = 0x337
+###[ Raw ]### 
+              load      = 'to h2'
+
+Sent from h1-eth0.
+###[ Ethernet ]### 
+  dst       = ff:ff:ff:ff:ff:ff
+  src       = 00:00:00:00:00:01
+  type      = 0x1212
+###[ MyTunnel ]### 
+     proto_id  = 2048
+     dst_id    = 3
+     hop_limit = 8
+###[ IP ]### 
+        version   = 4
+        ihl       = 5
+        tos       = 0x0
+        len       = 33
+        id        = 1
+        flags     = 
+        frag      = 0
+        ttl       = 64
+        proto     = udp
+        chksum    = 0x66c9
+        src       = 10.0.0.1
+        dst       = 10.0.0.2
+        \options   \
+###[ UDP ]### 
+           sport     = 4321
+           dport     = 4321
+           len       = 13
+           chksum    = 0x238
+###[ Raw ]### 
+              load      = 'to h3'
+
+Sent from h1-eth0.
+Listening on h2-eth0...
+Received (tunnelled, dst_id=2, hop_limit=6) from 10.0.0.1 to 10.0.0.3, TTL 64: 'to h2'
+Listening on h3-eth0...
+Received (tunnelled, dst_id=3, hop_limit=6) from 10.0.0.1 to 10.0.0.2, TTL 64: 'to h3'
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=62 time=7.60 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=62 time=5.53 ms
+
+--- 10.0.0.3 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 5.534/6.567/7.601/1.033 ms
