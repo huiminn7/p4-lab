@@ -14,7 +14,9 @@ bind_layers(MyTunnel, IP, proto_id=0x0800)
 
 def show(pkt):
     if UDP in pkt and pkt[UDP].dport == 4321:
-        how = f"tunnelled, dst_id={pkt[MyTunnel].dst_id}" if MyTunnel in pkt else "plain IPv4"
+        how = (f"tunnelled, dst_id={pkt[MyTunnel].dst_id}, hop_limit={pkt[MyTunnel].hop_limit}"
+               if MyTunnel in pkt else "plain IPv4")
+        #how = f"tunnelled, dst_id={pkt[MyTunnel].dst_id}" if MyTunnel in pkt else "plain IPv4"
         msg = pkt[Raw].load.decode(errors="replace") if Raw in pkt else ""
         print(f"Received ({how}) from {pkt[IP].src} to {pkt[IP].dst}, TTL {pkt[IP].ttl}: {msg!r}", flush=True)
 
