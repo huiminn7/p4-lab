@@ -18,7 +18,7 @@ Make your own copy first, so you can save your work:
 The first start takes a minute or two while the lab image downloads. Then, in the terminal:
 
 ```bash
-python3 topo.py --id NNNN
+python3 topo.py --id 5000
 ```
 
 That compiles `tunnel.p4`, starts the network, fills the switches' tables and opens the
@@ -32,7 +32,7 @@ write `assignment/REPORT.md`, save your evidence in `assignment/evidence/`, and 
 pull request's link on Spectrum. Every push is checked automatically: the **Compile tunnel.p4**
 check must be green.
 
-`python3 topo.py --id NNNN --s2-program tunnel_v1.p4` runs s2 with a different program, for the
+`python3 topo.py --id 5000 --s2-program tunnel_v1.p4` runs s2 with a different program, for the
 assignment's mixed-rollout experiment.
 
 ## Files

@@ -1,0 +1,82 @@
+###[ Ethernet ]### 
+  dst       = ff:ff:ff:ff:ff:ff
+  src       = 00:00:00:00:00:01
+  type      = 0x1212
+###[ MyTunnel ]### 
+     proto_id  = 2048
+     dst_id    = 2
+     hop_limit = 8
+###[ IP ]### 
+        version   = 4
+        ihl       = 5
+        tos       = 0x0
+        len       = 33
+        id        = 1
+        flags     = 
+        frag      = 0
+        ttl       = 64
+        proto     = udp
+        chksum    = 0x66c8
+        src       = 10.0.0.1
+        dst       = 10.0.0.3
+        \options   \
+###[ UDP ]### 
+           sport     = 4321
+           dport     = 4321
+           len       = 13
+           chksum    = 0x803f
+###[ Raw ]### 
+              load      = 'mixed'
+
+Sent from h1-eth0.
+bash: htimeout: command not found
+Listening on h2-eth0...
+Done
+Modifying entry 2 for exact match table MyIngress.myTunnel_exact
+logs/s1.txt:974
+logs/s2.txt:970
+###[ Ethernet ]### 
+  dst       = ff:ff:ff:ff:ff:ff
+  src       = 00:00:00:00:00:01
+  type      = 0x1212
+###[ MyTunnel ]### 
+     proto_id  = 2048
+     dst_id    = 3
+     hop_limit = 8
+###[ IP ]### 
+        version   = 4
+        ihl       = 5
+        tos       = 0x0
+        len       = 32
+        id        = 1
+        flags     = 
+        frag      = 0
+        ttl       = 64
+        proto     = udp
+        chksum    = 0x66c9
+        src       = 10.0.0.1
+        dst       = 10.0.0.3
+        \options   \
+###[ UDP ]### 
+           sport     = 4321
+           dport     = 4321
+           len       = 12
+           chksum    = 0xee30
+###[ Raw ]### 
+              load      = 'loop'
+
+Sent from h1-eth0.
+logs/s1.txt:983
+logs/s2.txt:978
+logs/s1.txt:983
+logs/s2.txt:978
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on h2-eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+15:41:21.305936 00:00:00:00:00:01 > ff:ff:ff:ff:ff:ff, ethertype Unknown (0x1212), length 53: 
+	0x0000:  ffff ffff ffff 0000 0000 0001 1212 0800  ................
+	0x0010:  0002 0745 0000 2200 0100 0040 0d66 c70a  ...E.."....@.f..
+	0x0020:  0000 010a 0000 0310 e110 e100 0e80 0b6d  ...............m
+	0x0030:  6978 6564 32                             ixed2
+1 packet captured
+1 packet received by filter
+0 packets dropped by kernel
